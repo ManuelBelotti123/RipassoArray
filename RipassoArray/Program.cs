@@ -13,6 +13,7 @@ namespace RipassoArray
             //dichiarazioni
             int[] array = new int[100];
             int n = 0, el = 0, dim = 0, scelta = 0;
+            string html = "";
             //struttura menù
             do
             {
@@ -20,15 +21,19 @@ namespace RipassoArray
                 Console.Clear();
                 Console.WriteLine("1 - Aggiungi elemento all'array");
                 Console.WriteLine("2 - Stampa degli elementi caricati");
-                Console.WriteLine("3 - Uscita dal programma");
+                Console.WriteLine("3 - Visualizza dell'array in file html");
+                Console.WriteLine("4 - Ricerca un numero nell'array");
+                Console.WriteLine("5 - Cancella un elemento dell'array");
+                Console.WriteLine("6 - Inserisci un elemento nell'array");
+                Console.WriteLine("7 - Uscita dal programma");
                 //scelta'dell'opzione
-                Console.WriteLine("Inserisci la scelta");
+                Console.WriteLine("\nInserisci la scelta");
                 scelta = int.Parse(Console.ReadLine());
                 //esecuzione dell'opzione
                 switch (scelta)
                 {
                     case 1:
-                        Console.WriteLine("Inserire il carattere: ");
+                        Console.WriteLine("\nInserire il carattere: ");
                         el = int.Parse(Console.ReadLine());
                         if(AggiungiElementoArray(array, el, ref dim))
                         {
@@ -40,12 +45,17 @@ namespace RipassoArray
                         }
                         break;
                     case 2:
+                        Console.WriteLine("\nStampa dell'array: ");
                         StampaArray(array, dim);
+                        break;
+                    case 3:
+                        GenerazioneHTML(dim, ref html, array);
+                        Console.WriteLine(html);
                         break;
                 }
                 Console.WriteLine("Premere un tasto per continuare...");
                 Console.ReadLine();
-            } while (scelta != 3);
+            } while (scelta != 7);
         }
 
         static bool AggiungiElementoArray(int[] array, int elem, ref int i)
@@ -73,6 +83,17 @@ namespace RipassoArray
             {
                 Console.WriteLine(array[i]);
             }
+        }
+
+        static string GenerazioneHTML(int dimensione, ref string html, int[] array)
+        {
+            string td = "";
+            for (int i = 0; i < dimensione; i++)
+            {  
+                td = td + "<td>" + array[i] + "</td>";
+            }
+            html = "<html><head><title>Array</title><style>html {font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}td {border: 2px black solid;padding: 20px;font-size: 30px;}</style></head><body><h1>Stampa dell'array</h1><table><tr>" + td +"</tr></table></body></html>";
+            return html;
         }
     }
 }
