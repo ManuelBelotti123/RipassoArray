@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,6 +53,11 @@ namespace RipassoArray
                         GenerazioneHTML(dim, ref html, array);
                         Console.WriteLine(html);
                         break;
+                    case 4:
+                        Console.WriteLine("\nInserire il carattere da ricercare: ");
+                        el = int.Parse(Console.ReadLine());
+                        Console.WriteLine("\nPosizione: " + RicercaArray(dim, array, el));
+                        break;
                 }
                 Console.WriteLine("Premere un tasto per continuare...");
                 Console.ReadLine();
@@ -94,6 +100,26 @@ namespace RipassoArray
             }
             html = "<html><head><title>Array</title><style>html {font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}td {border: 2px black solid;padding: 20px;font-size: 30px;}</style></head><body><h1>Stampa dell'array</h1><table><tr>" + td +"</tr></table></body></html>";
             return html;
+        }
+
+        static int RicercaArray(int dimensione, int[] array, int el)
+        {
+            int i = 0;
+            for (i = 0; i < dimensione; i++)
+            {
+                if (array[i] == el)
+                {
+                    break;
+                }
+            }
+            if (array[i] == el)
+            {
+                return i;
+            }
+            else
+            {
+                return -1;
+            }
         }
     }
 }
