@@ -20,9 +20,9 @@ namespace RipassoArray
             {
                 //stampa delle opzioni
                 Console.Clear();
-                Console.WriteLine("1 - Aggiungi elemento all'array");
+                Console.WriteLine("1 - Aggiungi elemento all'array in coda");
                 Console.WriteLine("2 - Stampa degli elementi caricati");
-                Console.WriteLine("3 - Visualizza dell'array in file html");
+                Console.WriteLine("3 - Visualizzazione dell'array in file html");
                 Console.WriteLine("4 - Ricerca un numero nell'array");
                 Console.WriteLine("5 - Cancella un elemento dell'array");
                 Console.WriteLine("6 - Inserisci un elemento nell'array");
@@ -58,6 +58,19 @@ namespace RipassoArray
                         el = int.Parse(Console.ReadLine());
                         Console.WriteLine("\nPosizione: " + RicercaArray(dim, array, el));
                         break;
+                    case 5:
+                        Console.WriteLine("\nInserire la posizione del carattere da cancellare: ");
+                        int pos = int.Parse(Console.ReadLine());
+                        if (pos < dim)
+                        {
+                            CancellaArray(array, pos, ref dim);
+                            Console.WriteLine("Cancellazione effettuata correttamente");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Posizione non utilizzata");
+                        }
+                        break;
                 }
                 Console.WriteLine("Premere un tasto per continuare...");
                 Console.ReadLine();
@@ -76,6 +89,7 @@ namespace RipassoArray
                 i++;
 
             }
+            //se l'array è pieno
             else
             {
                 ins = false;
@@ -120,6 +134,15 @@ namespace RipassoArray
             {
                 return -1;
             }
+        }
+
+        static void CancellaArray(int[] array, int posizione, ref int dimensione)
+        {
+            for (int i = posizione; i < dimensione; i++)
+            {
+                array[i] = array[i + 1];
+            }
+            dimensione--;
         }
     }
 }
