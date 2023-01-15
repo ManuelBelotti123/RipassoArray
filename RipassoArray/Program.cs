@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -65,6 +66,21 @@ namespace RipassoArray
                         {
                             CancellaArray(array, pos, ref dim);
                             Console.WriteLine("Cancellazione effettuata correttamente");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Posizione non utilizzata");
+                        }
+                        break;
+                    case 6:
+                        Console.WriteLine("\nInserire la posizione in cui si vuole inserire il carattere: ");
+                        pos = int.Parse(Console.ReadLine());
+                        Console.WriteLine("\nInserire il carattere: ");
+                        el = int.Parse(Console.ReadLine());
+                        if (pos < dim)
+                        {
+                            InserisciArray(array, pos, ref dim, el);
+                            Console.WriteLine("Carattere inserito correttamente");
                         }
                         else
                         {
@@ -143,6 +159,18 @@ namespace RipassoArray
                 array[i] = array[i + 1];
             }
             dimensione--;
+        }
+
+        static void InserisciArray(int[] array, int posizione, ref int dimensione, int el)
+        {
+            int f = dimensione;
+            for (int i = posizione; i < dimensione; i++)
+            {
+                array[f] = array[f - 1];
+                f--;
+            }
+            array[posizione] = el;
+            dimensione++;
         }
     }
 }
