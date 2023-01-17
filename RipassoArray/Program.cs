@@ -115,6 +115,7 @@ namespace RipassoArray
 
         static void StampaArray(int[] array, int dimensione)
         {
+            //ciclo di stampa dell'array
             for (int i = 0; i < dimensione; i++)
             {
                 Console.WriteLine(array[i]);
@@ -123,6 +124,7 @@ namespace RipassoArray
 
         static string GenerazioneHTML(int dimensione, ref string html, int[] array)
         {
+            //ciclo di generazione del codice html in una stringa
             string td = "";
             for (int i = 0; i < dimensione; i++)
             {  
@@ -135,6 +137,7 @@ namespace RipassoArray
         static int RicercaArray(int dimensione, int[] array, int el)
         {
             int i = 0;
+            //ciclo di ricerca dell'elemento
             for (i = 0; i < dimensione; i++)
             {
                 if (array[i] == el)
@@ -142,10 +145,12 @@ namespace RipassoArray
                     break;
                 }
             }
+            //se l'elemento è presente
             if (array[i] == el)
             {
                 return i;
             }
+            //se l'elemento non è presente
             else
             {
                 return -1;
@@ -154,6 +159,7 @@ namespace RipassoArray
 
         static void CancellaArray(int[] array, int posizione, ref int dimensione)
         {
+            //ciclo di spostamento degli elementi nelle celle di una posizione indietro
             for (int i = posizione; i < dimensione; i++)
             {
                 array[i] = array[i + 1];
@@ -163,12 +169,14 @@ namespace RipassoArray
 
         static void InserisciArray(int[] array, int posizione, ref int dimensione, int el)
         {
+            //ciclo di spostamento degli elementi nelle celle di una posizione avanti
             int f = dimensione;
             for (int i = posizione; i < dimensione; i++)
             {
                 array[f] = array[f - 1];
                 f--;
             }
+            //inserimento dell'elemento desiderato nella posizione indicata
             array[posizione] = el;
             dimensione++;
         }
