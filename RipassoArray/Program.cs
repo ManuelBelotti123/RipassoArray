@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,10 @@ namespace RipassoArray
                 Console.WriteLine("4 - Ricerca un numero nell'array");
                 Console.WriteLine("5 - Cancella un elemento dell'array");
                 Console.WriteLine("6 - Inserisci un elemento nell'array");
-                Console.WriteLine("7 - Uscita dal programma");
+                Console.WriteLine("7 - Caricamento di un array di n numeri random compresi tra X e Y");
+                Console.WriteLine("8 - Troncamento di un array data una dimensione Z");
+                Console.WriteLine("9 - Aggiunta ordinata di numeri in un array");
+                Console.WriteLine("0 - Uscita dal programma");
                 //scelta'dell'opzione
                 Console.WriteLine("\nInserisci la scelta");
                 scelta = int.Parse(Console.ReadLine());
@@ -87,10 +91,32 @@ namespace RipassoArray
                             Console.WriteLine("Posizione non utilizzata");
                         }
                         break;
+                    case 7:
+                        Console.WriteLine("Inserire n: ");
+                        int num = int.Parse(Console.ReadLine());
+                        Console.WriteLine("Inserire X: ");
+                        int X = int.Parse(Console.ReadLine());
+                        Console.WriteLine("Inserire Y: ");
+                        int Y = int.Parse(Console.ReadLine());
+                        array = ArrayRandom(array, num, X, Y, ref dim);
+                        Console.WriteLine("Array generato correttamente");
+                        break;
+                    case 8:
+                        Console.WriteLine("Inserire Z: ");
+                        int Z = int.Parse(Console.ReadLine());
+                        TroncaArray(ref dim, Z);
+                        Console.WriteLine("Array troncato correttamente");
+                        break;
+                    case 9:
+                        Console.WriteLine("Inserire il numero: ");
+                        el = int.Parse(Console.ReadLine());
+                        PosizionamentoCorretto(array, ref dim, el);
+                        Console.WriteLine("Elemento inserito correttamente");
+                        break;
                 }
                 Console.WriteLine("Premere un tasto per continuare...");
                 Console.ReadLine();
-            } while (scelta != 7);
+            } while (scelta != 0);
         }
 
         static bool AggiungiElementoArray(int[] array, int elem, ref int i)
@@ -179,6 +205,57 @@ namespace RipassoArray
             //inserimento dell'elemento desiderato nella posizione indicata
             array[posizione] = el;
             dimensione++;
+        }
+
+        static int[] ArrayRandom(int[] array, int numero, int x, int y, ref int dim)
+        {
+            //assegno a dim il valore di numero
+            dim = numero;
+            //dichiarazioni
+            Random random = new Random();
+            //ciclo di caricamento dell'array con numeri casuali compresi tra X e Y
+            for (int i = 0; i < dim; i++)
+            {
+                array[i] = random.Next(x, y + 1);
+            }
+            return array;
+        }
+
+        static void TroncaArray(ref int dim, int Z)
+        {
+            //riduco l'array alla dimensione Z
+            dim = dim - Z;   
+        }
+
+        static void PosizionamentoCorretto(int[] array, ref int dimensione, int el)
+        {
+            //dichiarzioni
+            int x, y, temp;
+            //aggiunge l'elemento
+            if (AggiungiElementoArray(array, el, ref dimensione))
+            {
+                Console.WriteLine("Elemento inserito correttamente");
+            }
+            else
+            {
+                Console.WriteLine("Array pieno");
+            }
+            //ciclo per tutti i numeri
+            for (x = 0; x < dimensione - 1; x++)
+            {
+                //per confrontare tutte le coppie
+                for (y = 0; y < dimensione - 1 - x; y++)
+                {
+                    //se la coppia è da scambiare
+                    if (array[y] > array[y + 1])
+                    {
+                        temp = array[y];
+                        //avviene lo scambio
+                        array[y] = array[y + 1];
+                        array[y + 1] = temp;
+                    }
+                }
+            }
         }
     }
 }
